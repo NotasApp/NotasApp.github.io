@@ -1,227 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Notas</title>
-	<link rel="stylesheet" href="style.css">
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
-	<style type="text/css">
-		pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
-		.string { color: green; }
-		.number { color: darkorange; }
-		.boolean { color: blue; }
-		.null { color: magenta; }
-		.key { color: red; }
-
-
-		.card-info{
-			padding: 13px;
-		}
-
-		p{
-			word-wrap: break-word;
-		}
-
+	<title>Notas FAQs</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<style>
 		*{
-			font-family: 'Roboto Slab', serif;
+			font-family: 'Roboto', sans-serif;
+		}
+		.accordion {
+		  background-color: #1976d2;
+		  color: #444;
+		  cursor: pointer;
+		  padding: 18px;
+		  width: 100%;
+		  border: none;
+		  text-align: left;
+		  outline: none;
+		  font-size: 15px;
+		  transition: 0.4s;
+		  color: white;
 		}
 
-		textarea{
-			padding: 10px;
+		.active, .accordion:hover {
+		  background-color: #115394;
+		}
+
+		.accordion:after {
+		  content: '\002B';
+		  color: white;
+		  font-weight: bold;
+		  float: right;
+		  margin-left: 5px;
+		}
+
+		.active:after {
+		  content: "\2212";
+		}
+
+		.panel {
+		  padding: 0 18px;
+		  background-color: #4fc3f7;
+		  max-height: 0;
+		  overflow: hidden;
+		  transition: max-height 0.2s ease-out;
+		}
+
+		img{
 			width: 100%;
 		}
 
-		button {
-			background-color:#0a7efa;
-			-moz-border-radius:12px;
-			-webkit-border-radius:12px;
-			border-radius:12px;
-			display:inline-block;
-			border:5px solid #337fed;
-			cursor:pointer;
-			color:#ffffff;
-			font-family:Arial;
-			font-size:19px;
-			font-weight:bold;
-			padding:12px 12px;
-			text-decoration:none;
-			width: 250px;
-		}
-
-		.card-title{
-			font-weight : bold;
-			text-align: center;
-			margin-bottom: 12px;
-		}
-
 	</style>
-</head>
+	</head>
 <body>
-	<div class="flex-container">
-		<textarea name="Text1" cols="60" rows="10" id="jsonData" placeholder="Plase here your Notas backup content"></textarea>
-		<button onclick="processData();">Process</button>
 
-		<script type="text/javascript">
-			
-			function processData(){
+	<h3>Preguntas frecuentes.</h3>
 
-				var data = document.getElementById("jsonData").value;
+	<p>Español.</p>
+	<button class="accordion">Quitar contraseña a tus notas</button>
+		
+		<div class="panel">
+		  <p></p>
+		  <img src="remove_password.png">
+		</div>
 
-				if(data != ""){
+	<script>
+		var acc = document.getElementsByClassName("accordion");
+		var i;
 
-					document.getElementById("jsonData").value = "";
+		for (i = 0; i < acc.length; i++) {
+		  acc[i].addEventListener("click", function() {
+		    this.classList.toggle("active");
+		    var panel = this.nextElementSibling;
+		    if (panel.style.maxHeight){
+		      panel.style.maxHeight = null;
+		    } else {
+		      panel.style.maxHeight = panel.scrollHeight + "px";
+		    } 
+		  });
+		}
+	</script>
 
-					document.getElementById("container").innerHTML = "";
-
-					var str = JSON.parse(data);
-
-					for(var i = 0; i < str.length; i++) {
-					    var obj = str[i];
-
-					    var card = document.createElement("div");
-						card.setAttribute('class', 'card');
-
-
-						var p = document.createElement('p');
-						var title = document.createTextNode(obj.title);
-
-						var txt = ""
-						if(obj.type == "Note"){
-							txt = obj.text;
-						}else{
-
-							var finalT = "";
-
-							var sstr = JSON.parse(obj.text);
-							for(var j = 0; j < sstr.length; j++){
-								
-								if(sstr[j].b){
-									finalT += '\u2714' + " " + sstr[j].a;
-								}else{
-									finalT += '\u2718' + " " + sstr[j].a;
-								}
-								
-								finalT += '\n';
-							}
-
-							txt = finalT;
-
-						}
-
-
-
-						var text = document.createTextNode(txt);
-
-						var tContainer = document.createElement("div");
-						tContainer.setAttribute('class', 'card-title');	
-						tContainer.appendChild(title);	
-
-						p.appendChild(tContainer);
-						//p.appendChild(document.createElement("br"));
-						//p.appendChild(document.createElement("br"));				
-						if(obj.type == "CheckList"){
-							p.style = "white-space: pre-line;";
-						}
-						p.appendChild(text);
-
-						var card_info = document.createElement("div");
-						card_info.setAttribute('class', 'card-info');	
-						card_info.appendChild(p);				
-
-						
-						card.appendChild(card_info);
-
-						
-						card.style.backgroundColor = VBColorToHEX(obj.color);
-							
-						var light = lightOrDark(VBColorToHEX(obj.color));
-
-						if(light == 'dark'){
-							card.style.color = "white";
-						}else{
-							card.style.color = "black";
-						}
-						
-
-						document.getElementById('container').appendChild(card);
-					}
-
-					var grid = new PinterestGrid({
-		                container: '.cards',
-		                item: '.card',
-		                gutter: 6,
-		                delay: 10
-		            });
-
-		            window.addEventListener('resize', function() {
-		                grid.init();
-		            });
-
-		            Array.from(document.querySelectorAll('.card img')).forEach(function(item) {
-		                item.addEventListener('load', function() {
-		                    grid.init();
-		                    item.removeEventListener('load');
-		                }, false);
-		            });
-				}
-			
-
-			}
-
-			function VBColorToHEX(i) {
-			    var bbggrr =  ("000000" + i.toString(16)).slice(-6);
-			    var rrggbb = bbggrr.substr(4, 2) + bbggrr.substr(2, 2) + bbggrr.substr(0, 2);
-			    return "#" + rrggbb;
-			}
-
-			function lightOrDark(color) {
-
-			    // Variables for red, green, blue values
-			    var r, g, b, hsp;
-			    
-			    // Check the format of the color, HEX or RGB?
-			    if (color.match(/^rgb/)) {
-			        // If HEX --> store the red, green, blue values in separate variables
-			        color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
-			        
-			        r = color[1];
-			        g = color[2];
-			        b = color[3];
-			    }else {
-			      
-			        // If RGB --> Convert it to HEX: http://gist.github.com/983661
-			        color = +("0x" + color.slice(1).replace( 
-			        color.length < 5 && /./g, '$&$&'));
-
-			        r = color >> 16;
-			        g = color >> 8 & 255;
-			        b = color & 255;
-			    }
-			    
-			    // HSP (Highly Sensitive Poo) equation from http://alienryderflex.com/hsp.html
-			    hsp = Math.sqrt(
-			    0.299 * (r * r) +
-			    0.587 * (g * g) +
-			    0.114 * (b * b)
-			    );
-
-			    // Using the HSP value, determine whether the color is light or dark
-			    if (hsp>127.5) {
-			        return 'light';
-			    }else {
-			        return 'dark';
-			    }
-			}
-
-		</script>
-
-
-
-		<div class="cards" id="container"></div>
-	</div>
-
-
-
-	<script src="pinterestgrid.js"></script>
-    
 </body>
 </html>
