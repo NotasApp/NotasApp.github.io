@@ -22,6 +22,20 @@
 		  color: white;
 		}
 
+		.accordion-deprecated {
+		  background-color: #ff0000;
+		  color: #444;
+		  cursor: pointer;
+		  padding: 18px;
+		  width: 100%;
+		  border: none;
+		  text-align: left;
+		  outline: none;
+		  font-size: 15px;
+		  transition: 0.4s;
+		  color: white;
+		}
+
 		.active, .accordion:hover {
 		  background-color: #115394;
 		}
@@ -50,10 +64,25 @@
 			width: 100%;
 		}
 
+		#explanation{
+			padding: 30px;
+    		color: white;
+    		text-align: justify;
+		}
+
+		header{
+			padding: 30px;
+    		color: black;
+    		text-align: justify;
+		}
+
 	</style>
 	</head>
 <body>
 
+	<header>
+		<h1>Hi! I'm Victor and this will be the official support web page of my app called Notes! </h1>
+	</header>
 	<h3>Frequent questions.</h3>
 
 	<button class="accordion">Remove password/Quitar contraseña/Remover senha</button>
@@ -66,7 +95,17 @@
 <button class="accordion">Log in/Iniciar sesión/Entrar</button>
 		<div class="panel">
 		  <p></p>
-		  <img src="log_in_and_download_images.png">
+		  <img src="log_in_and_download_images.png" style="display: none;">
+		  <div id="explanation">
+			<h2>English</h2>
+			<h3>At this time May 2019, the backup of my app are disabled. This decision have been taken because Google moved their Google Drive API to a new protocol and basically I dont have time to spend change this. So, that's why is decition was taken over this change, I don't want to make a promess of when my app will have again a online backup system (maybe it'll be back at Jun or July of this year 2019), because I have a Job and Family and I made this app just for fun and to help other people create awesome notes. So please be pattient, my app it totally free and without annoying  ads. Thank you for download my app and I'll aprecciate if you share it with your friends. Thanks!</h3>
+
+			<h2>Español</h2>
+			<h3>En este momento, mayo de 2019, la copia de seguridad de mi aplicación está deshabilitada. Esta decisión se tomó porque Google movió su API de Google Drive a un nuevo protocolo y, básicamente, no tengo tiempo para cambiar esto. Entonces, por eso se tomó la decisión sobre este cambio, no quiero prometer cuándo mi aplicación volverá a tener un sistema de respaldo en línea (quizás vuelva a estar en junio o julio de este año 2019), porque Tengo un trabajo y una familia, e hice esta aplicación solo por diversión y para ayudar a otras personas a crear notas asombrosas. Así que, por favor, sea paciente, mi aplicación es totalmente gratuita y sin anuncios molestos. Gracias por descargar mi aplicación y te lo agradeceré si la compartes con tus amigos. ¡Gracias!</h3>
+
+			<h2>Portugués</h2>
+			<h3>Neste momento, em maio de 2019, o backup do meu aplicativo está desativado. Essa decisão foi tomada porque o Google mudou sua API do Google Drive para um novo protocolo e, basicamente, não tenho tempo para gastá-lo. Então é por isso que a decisão foi tomada sobre essa mudança, eu não quero fazer uma promessa de quando meu aplicativo terá novamente um sistema de backup online (talvez em junho ou julho de 2019) porque eu tenho um emprego e uma família e fiz esta aplicação apenas por diversão e para ajudar outras pessoas a criar notas impressionantes. Então, por favor, seja paciente, meu aplicativo é totalmente gratuito e sem anúncios irritantes. Obrigado por fazer o download do meu aplicativo e agradecemos se você o compartilhar com seus amigos. Obrigado!</h3>
+		</div>
 		</div>
 
 	<script>
